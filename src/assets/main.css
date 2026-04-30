@@ -109,30 +109,41 @@ a[href^="#"] {
 /* Animation utility classes */
 .anim-fade-up {
   opacity: 0;
+  transform: translate3d(0, 30px, 0);
+  will-change: transform, opacity;
   animation: fade-in-up 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
 }
 
 .anim-fade {
   opacity: 0;
+  will-change: opacity;
   animation: fade-in 1s ease-out forwards;
 }
 
 .anim-blur-in {
   opacity: 0;
+  transform: translate3d(0, 60px, 0);
+  filter: blur(10px);
+  will-change: transform, opacity, filter;
   animation: blur-in-up 1s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
 }
 
 .anim-slide-left {
   opacity: 0;
+  transform: translate3d(-30px, 0, 0);
+  will-change: transform, opacity;
   animation: slide-in-left 0.7s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
 }
 
 .anim-scale-in {
   opacity: 0;
+  transform: scale(0.97) translate3d(0, 30px, 0);
+  will-change: transform, opacity;
   animation: scale-in 0.7s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
 }
 
 /* When not yet visible, keep hidden */
 .anim-wait {
   opacity: 0;
+  will-change: transform, opacity;
 }
