@@ -2,6 +2,9 @@
 
 个人作品集 / Portfolio，展示全栈开发与后端架构能力。
 
+**在线访问** https://singularity.ynyg.cloud  
+**联系邮箱** niyouguanyu@gmail.com
+
 ## 技术栈
 
 - **Vue 3** + TypeScript（Composition API）
