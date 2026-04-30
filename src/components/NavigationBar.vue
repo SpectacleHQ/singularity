@@ -1,5 +1,4 @@
 <script setup lang="ts">
- 
 import { ref, computed, onMounted } from 'vue'
 import { useWindowScroll } from '@vueuse/core'
 import { useI18n } from 'vue-i18n'
@@ -39,7 +38,9 @@ function toggleLocale() {
       <!-- Logo -->
       <a href="#" class="flex items-center gap-3 group">
         <span class="text-gold text-xl font-serif italic">◈</span>
-        <span class="font-mono text-xs tracking-[0.3em] uppercase text-foreground/80 group-hover:text-gold transition-colors duration-300">
+        <span
+          class="font-mono text-xs tracking-[0.3em] uppercase text-foreground/80 group-hover:text-gold transition-colors duration-300"
+        >
           Singularity
         </span>
       </a>

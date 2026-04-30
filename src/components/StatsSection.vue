@@ -1,38 +1,40 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import { useElementVisibility } from '@vueuse/core'
+import { useIntersectionObserver } from '@vueuse/core'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
 const sectionRef = ref<HTMLElement | null>(null)
-const isVisible = useElementVisibility(sectionRef)
+const isVisible = ref(false)
 const hasAnimated = ref(false)
 
 const statKeys = ['experience', 'projects', 'clients', 'satisfaction'] as const
 
-watch(isVisible, (v) => {
-  if (v && !hasAnimated.value) {
-    hasAnimated.value = true
-  }
-})
+useIntersectionObserver(
+  sectionRef,
+  ([entry]) => {
+    if (entry?.isIntersecting) {
+      isVisible.value = true
+      hasAnimated.value = true
+    }
+  },
+  { threshold: 0.1 },
+)
 
 function useCounter(target: number) {
   const current = ref(0)
-  watch(
-    hasAnimated,
-    (a) => {
-      if (!a) return
-      const duration = 2000
-      const steps = 60
-      const increment = target / steps
-      let step = 0
-      const timer = setInterval(() => {
-        step++
-        current.value = Math.min(Math.round(increment * step), target)
-        if (step >= steps) clearInterval(timer)
-      }, duration / steps)
-    },
-  )
+  watch(hasAnimated, (a) => {
+    if (!a) return
+    const duration = 2000
+    const steps = 60
+    const increment = target / steps
+    let step = 0
+    const timer = setInterval(() => {
+      step++
+      current.value = Math.min(Math.round(increment * step), target)
+      if (step >= steps) clearInterval(timer)
+    }, duration / steps)
+  })
   return current
 }
 
@@ -47,7 +49,9 @@ const counters = {
 <template>
   <section id="stats" ref="sectionRef" class="relative py-24 md:py-40">
     <!-- Background accent -->
-    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-gold/[0.02] to-transparent pointer-events-none" />
+    <div
+      class="absolute inset-0 bg-linear-to-b from-transparent via-gold/[0.02] to-transparent pointer-events-none"
+    />
 
     <div class="max-w-7xl mx-auto px-6 md:px-12">
       <!-- Section header -->
@@ -55,9 +59,12 @@ const counters = {
         class="text-center mb-16 md:mb-24 transition-all duration-700 ease-out"
         :class="isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'"
       >
-        <span class="font-mono text-[10px] tracking-[0.3em] uppercase text-gold/60 block mb-4">{{ t('stats.label') }}</span>
+        <span class="font-mono text-[10px] tracking-[0.3em] uppercase text-gold/60 block mb-4">{{
+          t('stats.label')
+        }}</span>
         <h2 class="font-serif text-4xl md:text-6xl lg:text-7xl text-foreground/90">
-          {{ t('stats.title', { italic: '' }) }}<span class="italic text-gradient-gold">{{ t('stats.titleItalic') }}</span>
+          {{ t('stats.title', { italic: '' })
+          }}<span class="italic text-gradient-gold">{{ t('stats.titleItalic') }}</span>
         </h2>
       </div>
 
@@ -70,7 +77,9 @@ const counters = {
           :style="{ transitionDelay: `${100 * index}ms` }"
           class="group text-center md:text-left transition-all duration-700 ease-out"
         >
-          <div class="font-serif text-5xl md:text-6xl lg:text-7xl text-gradient-gold leading-none mb-3">
+          <div
+            class="font-serif text-5xl md:text-6xl lg:text-7xl text-gradient-gold leading-none mb-3"
+          >
             {{ counters[key]?.value ?? 0 }}{{ key === 'satisfaction' ? '%' : '+' }}
           </div>
           <p class="font-mono text-xs tracking-[0.15em] uppercase text-foreground/60 mb-1">
@@ -79,7 +88,9 @@ const counters = {
           <p class="font-sans text-xs text-foreground/30">
             {{ t(`stats.items.${key}.description`) }}
           </p>
-          <div class="mt-4 h-px bg-gradient-to-r from-gold/30 to-transparent w-12 group-hover:w-full transition-all duration-700" />
+          <div
+            class="mt-4 h-px bg-linear-to-r from-gold/30 to-transparent w-12 group-hover:w-full transition-all duration-700"
+          />
         </div>
       </div>
     </div>

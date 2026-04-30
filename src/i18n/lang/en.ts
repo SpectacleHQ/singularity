@@ -26,7 +26,8 @@ export default {
     items: {
       designSystems: {
         title: 'Backend Architecture',
-        description: 'Django, FastAPI, Spring Boot — building high-performance, scalable server-side systems.',
+        description:
+          'Django, FastAPI, Spring Boot — building high-performance, scalable server-side systems.',
       },
       webgl: {
         title: 'Frontend Dev',
@@ -42,7 +43,8 @@ export default {
       },
       creative: {
         title: 'Blockchain',
-        description: 'Solidity smart contract development for decentralized applications and on-chain logic.',
+        description:
+          'Solidity smart contract development for decentralized applications and on-chain logic.',
       },
     },
   },
@@ -52,9 +54,21 @@ export default {
     titleItalic: 'speak',
     items: {
       experience: { value: '5+', label: 'Years Experience', description: 'Full-stack expertise' },
-      projects: { value: '30+', label: 'Projects Delivered', description: 'From prototype to production' },
-      clients: { value: '6+', label: 'Tech Stacks', description: 'Multi-language, multi-framework' },
-      satisfaction: { value: '100%', label: 'Code Quality', description: 'Reliability is the baseline' },
+      projects: {
+        value: '30+',
+        label: 'Projects Delivered',
+        description: 'From prototype to production',
+      },
+      clients: {
+        value: '6+',
+        label: 'Tech Stacks',
+        description: 'Multi-language, multi-framework',
+      },
+      satisfaction: {
+        value: '100%',
+        label: 'Code Quality',
+        description: 'Reliability is the baseline',
+      },
     },
   },
   showcase: {
@@ -67,25 +81,29 @@ export default {
         title: 'Nebula API',
         category: 'Backend',
         year: '2026',
-        description: 'High-performance microservice architecture built with FastAPI, handling millions of concurrent requests.',
+        description:
+          'High-performance microservice architecture built with FastAPI, handling millions of concurrent requests.',
       },
       aether: {
         title: 'Aether AI',
         category: 'AI App',
         year: '2025',
-        description: 'Intelligent dialogue system built with LangChain + LangGraph, supporting multi-turn reasoning.',
+        description:
+          'Intelligent dialogue system built with LangChain + LangGraph, supporting multi-turn reasoning.',
       },
       prism: {
         title: 'Prism DApp',
         category: 'Blockchain',
         year: '2025',
-        description: 'Decentralized trading platform powered by Solidity smart contracts with on-chain settlement.',
+        description:
+          'Decentralized trading platform powered by Solidity smart contracts with on-chain settlement.',
       },
       echo: {
         title: 'Echo Platform',
         category: 'Full-Stack',
         year: '2024',
-        description: 'Vue + Spring Boot full-stack project — enterprise management system with data dashboards.',
+        description:
+          'Vue + Spring Boot full-stack project — enterprise management system with data dashboards.',
       },
     },
   },

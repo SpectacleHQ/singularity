@@ -1,11 +1,19 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useElementVisibility } from '@vueuse/core'
+import { useIntersectionObserver } from '@vueuse/core'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
 const sectionRef = ref<HTMLElement | null>(null)
-const isVisible = useElementVisibility(sectionRef)
+const isVisible = ref(false)
+
+useIntersectionObserver(
+  sectionRef,
+  ([entry]) => {
+    if (entry?.isIntersecting) isVisible.value = true
+  },
+  { threshold: 0.1 },
+)
 
 const features = [
   {
@@ -49,9 +57,12 @@ const features = [
         class="mb-16 md:mb-24 transition-all duration-700 ease-out"
         :class="isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'"
       >
-        <span class="font-mono text-[10px] tracking-[0.3em] uppercase text-gold/60 block mb-4">{{ t('bento.label') }}</span>
+        <span class="font-mono text-[10px] tracking-[0.3em] uppercase text-gold/60 block mb-4">{{
+          t('bento.label')
+        }}</span>
         <h2 class="font-serif text-4xl md:text-6xl lg:text-7xl text-foreground/90 leading-[1.1]">
-          {{ t('bento.title', { italic: '' }) }}<span class="italic text-gradient-gold">{{ t('bento.titleItalic') }}</span>
+          {{ t('bento.title', { italic: '' })
+          }}<span class="italic text-gradient-gold">{{ t('bento.titleItalic') }}</span>
         </h2>
       </div>
 
@@ -62,19 +73,28 @@ const features = [
           :key="feature.key"
           :class="[
             feature.span,
-            isVisible ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-[0.97] translate-y-8',
+            isVisible
+              ? 'opacity-100 scale-100 translate-y-0'
+              : 'opacity-0 scale-[0.97] translate-y-8',
           ]"
           :style="{ transitionDelay: `${150 * index}ms` }"
           class="group relative border border-border/40 bg-surface/50 p-6 md:p-8 overflow-hidden transition-all duration-700 ease-out hover:border-gold/30 hover:bg-surface-raised/50"
         >
           <!-- Hover glow -->
-          <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
-            <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-gold/5 to-transparent" />
+          <div
+            class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
+          >
+            <div
+              class="absolute top-0 left-0 w-full h-full bg-linear-to-br from-gold/5 to-transparent"
+            />
           </div>
 
           <!-- Content -->
           <div class="relative z-10 h-full flex flex-col">
-            <span class="text-2xl md:text-3xl mb-4" :class="feature.accent ? 'text-gold' : 'text-foreground/20'">
+            <span
+              class="text-2xl md:text-3xl mb-4"
+              :class="feature.accent ? 'text-gold' : 'text-foreground/20'"
+            >
               {{ feature.icon }}
             </span>
             <h3 class="font-serif text-xl md:text-2xl text-foreground/90 mb-2">
@@ -85,12 +105,13 @@ const features = [
             </p>
 
             <!-- Corner accent -->
-            <div
-              v-if="feature.accent"
-              class="absolute top-0 right-0 w-16 h-16 opacity-20"
-            >
-              <div class="absolute top-0 right-0 w-full h-px bg-gradient-to-l from-gold to-transparent" />
-              <div class="absolute top-0 right-0 h-full w-px bg-gradient-to-b from-gold to-transparent" />
+            <div v-if="feature.accent" class="absolute top-0 right-0 w-16 h-16 opacity-20">
+              <div
+                class="absolute top-0 right-0 w-full h-px bg-linear-to-l from-gold to-transparent"
+              />
+              <div
+                class="absolute top-0 right-0 h-full w-px bg-linear-to-b from-gold to-transparent"
+              />
             </div>
           </div>
         </div>

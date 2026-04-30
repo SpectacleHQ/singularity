@@ -1,18 +1,25 @@
 <script setup lang="ts">
-withDefaults(defineProps<{
-  words: string[]
-  speed?: number
-  reverse?: boolean
-}>(), {
-  speed: 30,
-})
+withDefaults(
+  defineProps<{
+    words: string[]
+    speed?: number
+    reverse?: boolean
+  }>(),
+  {
+    speed: 30,
+  },
+)
 </script>
 
 <template>
   <div class="relative overflow-hidden py-6 md:py-10 border-y border-border/30">
     <div
       class="flex w-max gap-8 md:gap-16"
-      :class="reverse ? 'animate-[marquee-reverse_var(--marquee-duration)_linear_infinite]' : 'animate-[marquee_var(--marquee-duration)_linear_infinite]'"
+      :class="
+        reverse
+          ? 'animate-[marquee-reverse_var(--marquee-duration)_linear_infinite]'
+          : 'animate-[marquee_var(--marquee-duration)_linear_infinite]'
+      "
       :style="{ '--marquee-duration': `${speed}s` }"
     >
       <template v-for="n in 3" :key="n">
@@ -31,11 +38,19 @@ withDefaults(defineProps<{
 
 <style scoped>
 @keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-33.333%); }
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-33.333%);
+  }
 }
 @keyframes marquee-reverse {
-  0% { transform: translateX(-33.333%); }
-  100% { transform: translateX(0); }
+  0% {
+    transform: translateX(-33.333%);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
 </style>

@@ -1,11 +1,19 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useElementVisibility } from '@vueuse/core'
+import { useIntersectionObserver } from '@vueuse/core'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
 const sectionRef = ref<HTMLElement | null>(null)
-const isVisible = useElementVisibility(sectionRef)
+const isVisible = ref(false)
+
+useIntersectionObserver(
+  sectionRef,
+  ([entry]) => {
+    if (entry?.isIntersecting) isVisible.value = true
+  },
+  { threshold: 0.1 },
+)
 
 const projectKeys = ['nebula', 'aether', 'prism', 'echo'] as const
 
@@ -26,9 +34,12 @@ const gradients = [
         :class="isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'"
       >
         <div>
-          <span class="font-mono text-[10px] tracking-[0.3em] uppercase text-gold/60 block mb-4">{{ t('showcase.label') }}</span>
+          <span class="font-mono text-[10px] tracking-[0.3em] uppercase text-gold/60 block mb-4">{{
+            t('showcase.label')
+          }}</span>
           <h2 class="font-serif text-4xl md:text-6xl lg:text-7xl text-foreground/90 leading-[1.1]">
-            {{ t('showcase.title', { italic: '' }) }}<span class="italic text-gradient-gold">{{ t('showcase.titleItalic') }}</span>
+            {{ t('showcase.title', { italic: '' })
+            }}<span class="italic text-gradient-gold">{{ t('showcase.titleItalic') }}</span>
           </h2>
         </div>
         <p class="font-sans text-sm text-foreground/40 max-w-sm leading-relaxed">
@@ -47,16 +58,22 @@ const gradients = [
         >
           <!-- Background gradient on hover -->
           <div
-            class="absolute inset-0 bg-gradient-to-r opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
+            class="absolute inset-0 bg-linear-to-r opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
             :class="gradients[index]"
           />
 
-          <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4 md:gap-8">
+          <div
+            class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4 md:gap-8"
+          >
             <!-- Left -->
             <div class="flex items-baseline gap-4 md:gap-8">
-              <span class="font-mono text-xs text-foreground/20">{{ String(index + 1).padStart(2, '0') }}</span>
+              <span class="font-mono text-xs text-foreground/20">{{
+                String(index + 1).padStart(2, '0')
+              }}</span>
               <div>
-                <h3 class="font-serif text-2xl md:text-4xl text-foreground/90 group-hover:text-gradient-gold transition-all duration-300">
+                <h3
+                  class="font-serif text-2xl md:text-4xl text-foreground/90 group-hover:text-gradient-gold transition-all duration-300"
+                >
                   {{ t(`showcase.projects.${key}.title`) }}
                 </h3>
                 <p class="font-sans text-sm text-foreground/40 mt-1 md:mt-2 max-w-md">
@@ -73,7 +90,9 @@ const gradients = [
               <span class="font-mono text-xs text-foreground/20">
                 {{ t(`showcase.projects.${key}.year`) }}
               </span>
-              <span class="text-gold/0 group-hover:text-gold/60 transition-all duration-500 text-lg translate-x-0 group-hover:translate-x-2">
+              <span
+                class="text-gold/0 group-hover:text-gold/60 transition-all duration-500 text-lg translate-x-0 group-hover:translate-x-2"
+              >
                 →
               </span>
             </div>

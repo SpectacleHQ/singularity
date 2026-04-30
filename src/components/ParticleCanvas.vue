@@ -122,8 +122,5 @@ onMounted(() => {
 </script>
 
 <template>
-  <canvas
-    ref="canvas"
-    class="absolute inset-0 w-full h-full pointer-events-none"
-  />
+  <canvas ref="canvas" class="absolute inset-0 w-full h-full pointer-events-none" />
 </template>
