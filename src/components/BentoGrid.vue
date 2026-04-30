@@ -45,7 +45,10 @@ const features = [
   <section id="bento" ref="sectionRef" class="relative py-24 md:py-40 px-6 md:px-12">
     <div class="max-w-7xl mx-auto">
       <!-- Section header -->
-      <div class="mb-16 md:mb-24" :class="isVisible ? 'anim-fade-up' : 'opacity-0'">
+      <div
+        class="mb-16 md:mb-24 transition-all duration-700 ease-out"
+        :class="isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'"
+      >
         <span class="font-mono text-[10px] tracking-[0.3em] uppercase text-gold/60 block mb-4">{{ t('bento.label') }}</span>
         <h2 class="font-serif text-4xl md:text-6xl lg:text-7xl text-foreground/90 leading-[1.1]">
           {{ t('bento.title', { italic: '' }) }}<span class="italic text-gradient-gold">{{ t('bento.titleItalic') }}</span>
@@ -59,10 +62,10 @@ const features = [
           :key="feature.key"
           :class="[
             feature.span,
-            isVisible ? 'anim-scale-in' : 'opacity-0',
+            isVisible ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-[0.97] translate-y-8',
           ]"
-          :style="{ animationDelay: `${0.15 * index}s` }"
-          class="group relative border border-border/40 bg-surface/50 p-6 md:p-8 overflow-hidden transition-all duration-500 hover:border-gold/30 hover:bg-surface-raised/50"
+          :style="{ transitionDelay: `${150 * index}ms` }"
+          class="group relative border border-border/40 bg-surface/50 p-6 md:p-8 overflow-hidden transition-all duration-700 ease-out hover:border-gold/30 hover:bg-surface-raised/50"
         >
           <!-- Hover glow -->
           <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">

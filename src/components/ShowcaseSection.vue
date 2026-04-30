@@ -21,7 +21,10 @@ const gradients = [
   <section id="showcase" ref="sectionRef" class="relative py-24 md:py-40">
     <div class="max-w-7xl mx-auto px-6 md:px-12">
       <!-- Section header -->
-      <div class="mb-16 md:mb-24 flex flex-col md:flex-row md:items-end justify-between gap-6" :class="isVisible ? 'anim-fade-up' : 'opacity-0'">
+      <div
+        class="mb-16 md:mb-24 flex flex-col md:flex-row md:items-end justify-between gap-6 transition-all duration-700 ease-out"
+        :class="isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'"
+      >
         <div>
           <span class="font-mono text-[10px] tracking-[0.3em] uppercase text-gold/60 block mb-4">{{ t('showcase.label') }}</span>
           <h2 class="font-serif text-4xl md:text-6xl lg:text-7xl text-foreground/90 leading-[1.1]">
@@ -38,9 +41,9 @@ const gradients = [
         <div
           v-for="(key, index) in projectKeys"
           :key="key"
-          :class="isVisible ? 'anim-slide-left' : 'opacity-0'"
-          :style="{ animationDelay: `${0.12 * index}s` }"
-          class="group relative border border-border/30 bg-surface/30 p-6 md:p-10 overflow-hidden transition-all duration-500 hover:bg-surface-raised/50 hover:border-gold/20 cursor-pointer"
+          :class="isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'"
+          :style="{ transitionDelay: `${120 * index}ms` }"
+          class="group relative border border-border/30 bg-surface/30 p-6 md:p-10 overflow-hidden transition-all duration-700 ease-out hover:bg-surface-raised/50 hover:border-gold/20 cursor-pointer"
         >
           <!-- Background gradient on hover -->
           <div

@@ -51,7 +51,10 @@ const counters = {
 
     <div class="max-w-7xl mx-auto px-6 md:px-12">
       <!-- Section header -->
-      <div class="text-center mb-16 md:mb-24" :class="isVisible ? 'anim-fade-up' : 'opacity-0'">
+      <div
+        class="text-center mb-16 md:mb-24 transition-all duration-700 ease-out"
+        :class="isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'"
+      >
         <span class="font-mono text-[10px] tracking-[0.3em] uppercase text-gold/60 block mb-4">{{ t('stats.label') }}</span>
         <h2 class="font-serif text-4xl md:text-6xl lg:text-7xl text-foreground/90">
           {{ t('stats.title', { italic: '' }) }}<span class="italic text-gradient-gold">{{ t('stats.titleItalic') }}</span>
@@ -63,9 +66,9 @@ const counters = {
         <div
           v-for="(key, index) in statKeys"
           :key="key"
-          :class="isVisible ? 'anim-fade-up' : 'opacity-0'"
-          :style="{ animationDelay: `${0.1 * index}s` }"
-          class="group text-center md:text-left"
+          :class="isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'"
+          :style="{ transitionDelay: `${100 * index}ms` }"
+          class="group text-center md:text-left transition-all duration-700 ease-out"
         >
           <div class="font-serif text-5xl md:text-6xl lg:text-7xl text-gradient-gold leading-none mb-3">
             {{ counters[key]?.value ?? 0 }}{{ key === 'satisfaction' ? '%' : '+' }}
